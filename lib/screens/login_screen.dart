@@ -8,6 +8,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool _isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,11 +87,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   const Text('Password', style: TextStyle(color: Colors.black)),
                   const SizedBox(height: 8),
                   TextFormField(
-                    obscureText: true,
+                    obscureText: !_isPasswordVisible,
                     decoration: InputDecoration(
                       hintText: 'Masukkan Password Anda',
                       prefixIcon: Icon(Icons.lock_outline),
-                      suffixIcon: Icon(Icons.visibility_outlined),
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(7),
                       ),
